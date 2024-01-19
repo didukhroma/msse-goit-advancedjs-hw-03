@@ -1,26 +1,53 @@
-import axios from 'axios';
-const API_KEY =
-  'live_ZzU8YmZ7BGhDcZ8MoDPGW2AQRGZIcfWPEIZZjYxQWLV1MkJb0N7UBeYzQ3cB5Bs5';
-const BREEDS_URL = 'https://api.thecatapi.com/v1/breeds';
-const SEARCH_URL = 'https:api.thecatapi.com/v1/images/search?breed_ids=';
+import { fetchBreeds, fetchCatByBreed } from './js/cat-api';
+import { ref } from './js/common';
+import {
+  createSelect,
+  hiddenElement,
+  visibleElement,
+  createInfoMarkup,
+} from './js/helpers';
 
-const ref = {
-  select: document.querySelector('.breed-select'),
-  loader: document.querySelector('.loader'),
-  error: document.querySelector('.error'),
-  catInfo: document.querySelector('.cat-info'),
-};
+//--------------------------------------------------------------------
 
-axios.defaults.headers.common['x-api-key'] = API_KEY;
+homeWork();
 
-function getBreeds() {
-  return axios({
-    url: BREEDS_URL,
-  }).then(function ({ data }) {
-    console.log(data);
-  });
+ref.select.addEventListener('change', handlerChange);
+
+//--------------------------------------------------------------------
+function handlerChange(e) {
+  visibleElement(ref.loader);
+  hiddenElement(ref.catInfo, ref.error);
+
+  fetchCatByBreed(e.currentTarget.value)
+    .then(data => {
+      hiddenElement(ref.loader);
+      const { breeds, url } = data[0];
+      const { name, description, temperament } = breeds[0];
+      return { url, name, description, temperament };
+    })
+    .then(info => {
+      createInfoMarkup(info);
+      visibleElement(ref.catInfo);
+    })
+    .catch(err => {
+      hiddenElement(ref.loader);
+      isibleElement(ref.error);
+      console.log(err);
+    });
 }
+//--------------------------------------------------------------------
+function homeWork() {
+  visibleElement(ref.loader);
 
-function getCat(breedIds) {
-  return axios({ url: `${SEARCH_URL}${breedIds}` }).then(({ data }) => data);
+  fetchBreeds()
+    .then(data => {
+      hiddenElement(ref.loader);
+      visibleElement(ref.select);
+      createSelect(data);
+    })
+    .catch(err => {
+      hiddenElement(ref.loader);
+      visibleElement(ref.error);
+      console.log(err);
+    });
 }
