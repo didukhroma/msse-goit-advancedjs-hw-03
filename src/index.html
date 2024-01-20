@@ -4,15 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 10</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/slim-select@latest/dist/slimselect.css"
+    />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <select class="breed-select visually-hidden" title="select cat"></select>
-    <p class="loader visually-hidden">Loading data, please wait...</p>
-    <p class="error visually-hidden">
-      Oops! Something went wrong! Try reloading the page!
-    </p>
-    <div class="cat-info visually-hidden"></div>
+    <div class="loader-wrapper">
+      <span class="loaderCss">L &nbsp; ading</span>
+    </div>
+    <div class="select-wrapper">
+      <select class="breed-select" title="select cat"></select>
+    </div>
+
+    <div class="cat-info"></div>
 
     <script src="index.js" type="module"></script>
   </body>

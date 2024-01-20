@@ -1,21 +1,41 @@
 import axios from 'axios';
-import { API_KEY, BREEDS_URL, SEARCH_URL } from './common';
-axios.defaults.headers.common['x-api-key'] = API_KEY;
+import { API_KEY, BASE_URL, routes } from './common';
 
+/**
+ * Default API_KEY for Axios
+ */
+axios.defaults.headers.common['x-api-key'] = API_KEY;
+/**
+ * Default URL for Axios
+ */
+axios.defaults.baseURL = BASE_URL;
+
+/**
+ * Get all breeds
+ *
+ *
+ * @export
+ * @returns {Promise}
+ * @example function fetchBreeds() {
+  return axios(routes.fetchAll);
+
+ */
 export function fetchBreeds() {
-  return axios({
-    url: BREEDS_URL,
-  }).then(res => {
-    if (res.status !== 200) throw new Error(res.status);
-    return res.data;
-  });
+  return axios(routes.fetchAll);
 }
 
+/**
+ * Get breed info
+ *
+ *
+ * @export
+ * @returns {Promise}
+ * @example function fetchBreeds() {
+  return axios(routes.fetchAll);
+
+ */
 export function fetchCatByBreed(breedId) {
   return axios({
-    url: `${SEARCH_URL}${breedId}`,
-  }).then(res => {
-    if (res.status !== 200) throw new Error(res.status);
-    return res.data;
+    url: `${routes.fetchCat}${breedId}`,
   });
 }

@@ -11,11 +11,13 @@
   "devDependencies": {
     "axios": "^1.6.5",
     "glob": "^8.1.0",
+    "slim-select": "^2.8.1",
     "vite": "^4.0.5"
   },
   "author": "Roman Didukh <didukhroma@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "izitoast": "^1.4.0",
     "vite-plugin-full-reload": "^1.0.5",
     "vite-plugin-html-inject": "^1.0.1"
   }
